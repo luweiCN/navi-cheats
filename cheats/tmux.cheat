@@ -1,0 +1,50 @@
+% tmux
+# 启动一个新的 tmux 会话
+tmux new -s <session_name>
+
+# 重新连接到一个已存在的 tmux 会话
+tmux attach -t <session_name>
+
+# 列出所有 tmux 会话
+tmux ls
+
+# 从一个 tmux 会话中分离
+tmux detach
+
+# 杀死一个 tmux 会话
+tmux kill-session -t <session_name>
+
+# 在当前会话中创建一个新窗口
+tmux new-window -n <window_name>
+
+# 切换到指定窗口
+tmux select-window -t <window_number>
+
+# 重命名当前窗口
+tmux rename-window <new_name>
+
+# 在当前窗口中创建一个新面板
+tmux split-window -h  # 水平分割
+tmux split-window -v  # 垂直分割
+
+# 切换到指定面板
+tmux select-pane -t <pane_number>
+
+# 关闭当前面板
+tmux kill-pane
+
+# 重新加载 tmux 配置文件
+tmux source-file ~/.tmux.conf
+
+# 显示 tmux 快捷键帮助
+tmux list-keys
+
+# 绑定一个新的快捷键
+tmux bind-key <key> <command>
+
+# 取消绑定一个快捷键
+tmux unbind-key <key>
+
+# 重启 tmux 服务器（会销毁所有会话）
+tmux kill-server
+

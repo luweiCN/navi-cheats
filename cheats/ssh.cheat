@@ -1,0 +1,4 @@
+% ssh
+
+# 启动 ssh 代理
+eval "$(ssh-agent -s)"; ssh-add

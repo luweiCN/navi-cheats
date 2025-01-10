@@ -1,0 +1,11 @@
+% weather
+
+# 显示当前位置的天气信息
+curl -s "wttr.in" \
+   | grep -v "New feature" \
+   | grep -v Follow
+
+# 显示特定位置的天气信息
+curl -s "wttr.in/<location>" \
+   | grep -v "New feature" \
+   | grep -v Follow

@@ -1,0 +1,45 @@
+% android, device
+
+# 日志
+adb -s <device> logcat -v time
+
+# 获取属性
+adb -s <device> shell getprop <property>
+
+# 安装 APK
+adb -s <device> install -r <path>
+
+# 卸载包
+adb -s <device> uninstall -r <package>
+
+# 清除包的用户数据
+adb -s <device> shell pm clear <package>
+
+# 分发深度链接 / 打开 URI
+adb -s <device> shell am start <uri>
+
+$ device: adb devices | grep -v devices | grep device | cut -f 1
+
+
+
+% android, emulator
+
+# 启动模拟器
+"$ANDROID_HOME/tools/emulator" -avd <emulator> -netdelay none -netspeed full
+
+$ emulator: "$ANDROID_HOME/tools/emulator" -list-avds
+
+
+
+% android, Firebase Crashlytics 测试
+
+# 在设备上启用调试日志
+adb -s <device> shell setprop log.tag.CrashlyticsCore DEBUG
+
+# 在设备日志中查看日志
+adb -s <device> logcat -s Fabric CrashlyticsCore
+
+# 禁用调试模式
+adb -s <device> shell setprop log.tag.CrashlyticsCore INFO
+
+$ device: adb devices | grep -v devices | grep device | cut -f 1

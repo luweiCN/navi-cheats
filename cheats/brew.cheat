@@ -1,0 +1,97 @@
+% brew, cask
+
+# 更新 brew
+brew update
+
+# 升级 brew
+brew upgrade
+
+# 获取软件包的信息
+brew info <package>
+
+# 获取 cask 的信息
+brew cask info <casks>
+
+# 安装软件包
+brew install <package>
+
+# 安装 cask
+brew cask install <casks>
+
+# 重新安装软件包
+brew reinstall <package>
+
+# 重新安装 cask
+brew reinstall <caskinstalled>
+
+# 卸载软件包
+brew uninstall <installed>
+
+# 卸载 cask
+brew cask uninstall <caskinstalled>
+
+# 编辑软件包
+brew edit <package>
+
+# 编辑 cask
+brew cask edit <casks>
+
+# 列出当前用户安装的所有服务
+brew services list
+
+# 以 root 身份列出安装的所有服务
+sudo brew services list
+
+# 运行服务公式但不注册为开机启动
+brew services run <brewservice>
+
+# 以 root 身份运行服务公式但不注册为开机启动
+sudo brew services run <brewservice>
+
+# 立即启动服务公式并注册为开机启动
+brew services start <brewservice>
+
+# 以 root 身份立即启动服务公式并注册为开机启动
+sudo brew services start <brewservice>
+
+# 立即停止服务公式并取消开机启动
+brew services stop <brewservice>
+
+# 以 root 身份立即停止服务公式并取消开机启动
+sudo brew services stop <brewservice>
+
+# 停止（如有必要）并立即启动服务公式并注册为开机启动
+brew services restart <brewservice>
+
+# 以 root 身份停止（如有必要）并立即启动服务公式并注册为开机启动
+sudo brew services restart <brewservice>
+
+# 移除所有未使用的服务
+brew services cleanup
+
+# 以 root 身份移除所有未使用的服务
+sudo brew services cleanup
+
+# 自动清理
+brew cleanup
+
+# 链接公式
+brew link <installed>
+
+# 链接时删除前缀中已存在的文件
+brew link --overwrite <installed>
+
+# 允许 keg-only 公式被链接
+brew link --force <installed>
+
+# 健康检查
+brew doctor
+
+# 修复权限
+sudo chown -R $(whoami):admin /usr/local
+
+$ package: brew search
+$ casks: brew search --casks
+$ installed: brew list
+$ caskinstalled: brew cask list
+$ brewservice: brew services list | awk '{if (NR>1){printf "%s\n", $1}}'

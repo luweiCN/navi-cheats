@@ -1,0 +1,28 @@
+% httpie, http
+
+# 发送一个 GET HTTP 请求
+http <url>
+
+# 发送一个 HTTP 请求
+http <method> <url>
+
+# 发送一个带有认证信息的 HTTP 请求
+http -a <username>:<password> <method> <url>
+
+# 发送一个带有 JSON body 的 HTTP 请求
+http <method> <url> <bodykey>=<bodyvalue>
+
+# 发送一个带有表单 body 的 HTTP 请求
+http -f POST <url> <bodykey>=<bodyvalue>
+
+# 发送一个 HTTP 请求并查看请求和响应
+http -v <url>
+
+# 发送一个带有文件 body 的 POST HTTP 请求
+http <method> <url> < <file>
+
+# 发送一个带有自定义头部的 HTTP 请求
+http <method> <url> <headername>:<headervalue>
+
+$ file: ls
+$ method: echo -e 'GET\nPOST\nPUT\nDELETE\nPATCH'

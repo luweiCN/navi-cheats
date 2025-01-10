@@ -1,0 +1,37 @@
+% gpg
+
+# gpg 版本
+gpg --version
+
+# gpg 生成密钥
+gpg --gen-key
+
+# 列出密钥
+gpg --list-keys
+
+# 将公钥分发到密钥服务器
+gpg --keyserver <key_server> --send-keys <public_key>
+
+# 导出公钥
+gpg --output <filename_gpg> --export <key_name>
+
+# 导入公钥
+gpg --import <filename_gpg>
+
+# 加密文档
+gpg --output <output_filename_gpg> --encrypt --recipient <public_key> <input_filename>
+
+# 解密文档
+gpg --output <filename> --decrypt <filename_gpg>
+
+# 生成签名
+gpg --output <filename_sig> --sign <filename>
+
+# 验证签名
+gpg --output <filename> <filename> --decrypt <filename_sig>
+
+# 清除签名文档
+gpg --clearsign <filename>
+
+# 分离签名
+gpg --output <filename_sig> --detach-sig <filename>

@@ -1,0 +1,52 @@
+% yum
+
+# 列出所有可用的软件包
+yum list available
+
+# 列出所有已安装的软件包
+yum list installed
+
+# 获取软件包信息
+yum info <package-name>
+
+# 在仓库中搜索（软件包和描述）
+yum search <query>
+
+# 列出所有历史操作（安装、更新和删除）
+yum history list
+
+# 检查已安装软件包的更新
+yum check-update
+
+# 更新所有软件包
+yum update
+
+# 更新特定/单个软件包
+yum update <package-name>
+
+# 降级软件包
+yum downgrade <package-name>
+
+# 从仓库安装软件包
+yum install <package-name>
+
+# 删除/卸载软件包
+yum remove <package-name>
+
+# 安装本地 rpm 软件包
+yum localinstall <filepath-rpm>
+
+# 安装安全更新
+yum update --security
+
+# 列出软件包的依赖关系
+yum deplist <package-name>
+
+# 删除不需要的软件包和依赖关系
+yum autoremove
+
+# 查找提供软件包/文件/二进制文件的内容
+yum whatprovides <query>
+
+# 列出当前启用的仓库
+yum repolist

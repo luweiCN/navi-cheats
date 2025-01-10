@@ -1,0 +1,10 @@
+% mysql, database, db
+
+# 创建数据库
+mysql -u <user> -p -e "create database <database> character set UTF8mb4 collate utf8mb4_bin"
+
+# 导出数据库
+mysqldump -u <user> -p <database> > <path>
+
+# 导入数据库
+mysql -u <user> -p <database> <path>

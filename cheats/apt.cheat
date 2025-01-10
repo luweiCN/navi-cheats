@@ -1,0 +1,55 @@
+% apt
+
+# 从软件包存储库更新内容列表
+apt update
+
+# 列出所有可用的软件包
+apt list
+
+# 列出所有已安装的软件包
+apt list --installed
+
+# 显示软件包信息（包括描述）
+apt show -a <package-name>
+
+# 显示可用软件包的版本和存档区域
+apt list -a <package-name>
+
+# 在存储库中搜索（软件包和描述）
+apt search <query>
+
+# 检查已安装软件包的更新
+apt list --upgradeable
+
+# 更新所有已安装的软件包
+apt upgrade
+
+# 升级所有已安装的软件包（添加/删除依赖项）
+apt full-upgrade
+
+# 更新特定/单个软件包
+apt install --only-upgrade <package-name>
+
+# 将软件包降级到特定版本
+apt install <package-name>=<package-version>
+
+# 从存储库安装软件包
+apt install <package-name>
+
+# 删除/卸载软件包
+apt remove <package-name>
+
+# 删除/卸载软件包（包括配置文件）
+apt purge <package-name>
+
+# 安装本地 dpkg 软件包
+apt install <filepath-deb>
+
+# 列出软件包的依赖项
+apt depends <package-name>
+
+# 列出软件包的反向依赖项
+apt rdepends <package-name>
+
+# 删除不需要的软件包和依赖项
+apt autoremove

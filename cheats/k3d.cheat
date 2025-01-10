@@ -1,0 +1,36 @@
+% k3d
+
+# 检查 docker 是否正在运行
+k3d check-tools
+
+# 为集群启动一个子 shell
+k3d shell
+
+# 在 docker 容器中创建一个单一的 k3s 集群
+k3d create --name <cluster_name>
+
+# 在 docker 容器中创建一个多节点的 k3s 集群
+k3d create --name <name> --workers <worker_count>
+
+# 删除集群
+k3d delete --name <cluster_name>
+
+# 停止集群
+k3d stop --name <cluster_name>
+
+# 启动已停止的集群
+k3d start --name <cluster_name>
+
+# 列出所有集群
+k3d list
+
+# 获取集群的 kubeconfig 位置
+k3d get-kubeconfig --name <cluster_name>
+
+# 从本地 docker 守护进程中导入一个以逗号或空格分隔的容器镜像列表到集群
+k3d import-images
+
+# 显示命令列表或某个命令的帮助信息
+k3d help
+
+$ cluster_name: k3d list |awk '{print $2}' | awk 'NF {print $0}' | tail -n +2

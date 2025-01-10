@@ -1,0 +1,81 @@
+% openssl, certificate, encryption
+
+## 通用的 OpenSSL 命令
+# 创建一个新的签名请求和密钥
+openssl req -new -newkey rsa:<RSA_LENGTH> -nodes -out <OUTPUT_CSR> -keyout <OUTPUT_KEY>
+
+# 创建一个新的自签名证书
+openssl req -x509 -sha256 -nodes -days <VALIDITY> -newkey rsa:<RSA_LENGTH> -out <OUTPUT_CRT> -keyout <OUTPUT_KEY>
+
+# 从现有密钥创建签名请求
+openssl req -out <OUTPUT_CSR> -key <INPUT_KEY> -new
+
+# 从现有证书和密钥创建签名请求
+openssl x509 -x509toreq -out <OUTPUT_CSR> -in <INPUT_CRT> -signkey <INPUT_KEY>
+
+# 从私钥中移除密码短语
+openssl rsa -in <INPUT_KEY> -out <OUTPUT_PLAINTEXT_KEY>
+
+
+
+## 在不同编码之间转换
+# 将 DER 编码文件转换为 PEM 编码文件
+openssl x509 -inform der -in <INPUT_CRT> -out <OUTPUT_PEM>
+
+# 将 PEM 编码文件转换为 DER 编码文件
+openssl x509 -outform der -in <INPUT_PEM> -out <OUTPUT_CRT>
+
+# 将包含私钥和证书的 PKCS12 编码文件转换为 PEM
+openssl pkcs12 -in <INPUT_PKCS12> -out <OUTPUT_PEM> -nodes
+
+# 从 PKCS12 编码文件中提取私钥
+openssl pkcs12 -in <INPUT_PKCS12> -out <OUTPUT_PEM> -nodes -nocerts
+
+# 从 PKCS12 编码文件中提取证书
+openssl pkcs12 -in <INPUT_PKCS12> -out <OUTPUT_PEM> -nodes -nokeys
+
+# 将 PEM 证书文件和私钥转换为 PKCS12 编码文件
+openssl pkcs12 -export -out <OUTPUT_PKCS12> -inkey <INPUT_KEY> -in <INPUT_CRT> -certfile <INPUT_CRT>
+
+
+
+## 使用 OpenSSL 验证证书和密钥
+# 验证证书签名请求
+openssl req -text -noout -verify -in <OUTPUT_CSR>
+
+# 验证私钥
+openssl rsa -in <INPUT_KEY> -check
+
+# 验证证书
+openssl x509 -in <INPUT_CRT> -text -noout
+
+# 验证 PKCS12 文件 (.pfx 或 .p12)
+openssl pkcs12 -info -in <INPUT_PKCS12>
+
+
+
+## 使用 OpenSSL 进行调试
+# 比较证书的 MD5 哈希值
+openssl x509 -noout -modulus -in <INPUT_CRT> | openssl md5
+
+# 比较私钥的 MD5 哈希值
+openssl rsa -noout -modulus -in <INPUT_KEY> | openssl md5
+
+# 比较证书签名请求的 MD5 哈希值
+openssl req -noout -modulus -in <OUTPUT_CSR> | openssl md5
+
+# 显示服务器证书链
+openssl s_client -connect <URL>:<PORT>
+
+
+
+# 合理/常见的默认替代方案
+$ VALIDITY: printf "DAYS\tCOMMENT\n1\ta day\n30\ta month\n365\ta year\n730\ttwo years" --- --column 1 --headers 1
+$ RSA_LENGTH: printf "KEY LENGTH\tCOMMENT\n2048\t\tDefault\n4096\t\tBetter\n8192\t\tSlow?" --- --column 1 --headers 1
+
+# 尝试查找具有适当结尾的文件，默认为所有文件。
+$ INPUT_PKCS12: ls -a | grep -e "\(.pfx\|.p12\)"       || ls -a
+$ INPUT_CSR:    ls -a | grep -e "\(.csr\)"             || ls -a
+$ INPUT_KEY:    ls -a | grep -e "\(.key\|.pem\)"       || ls -a
+$ INPUT_CRT:    ls -a | grep -e "\(.crt\|.cer\|.der\)" || ls -a
+$ INPUT_PEM:    ls -a | grep -e "\(.pem\)"             || ls -a

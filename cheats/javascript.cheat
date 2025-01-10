@@ -1,0 +1,85 @@
+% npm, node, js
+
+# 初始化新包
+npm init
+
+# 立即初始化新包
+npm init -y
+
+# 安装所有依赖包
+npm install
+
+# 为特定文件夹安装所有依赖包
+npm install --prefix <folder>
+
+# 安装所有开发依赖包
+npm install --save-dev
+
+# 为特定文件夹安装所有开发依赖包
+npm install --save-dev --prefix <folder>
+
+# 安装指定包
+npm install <package_name>
+
+# 安装指定开发包
+npm install <package_name> --save-dev
+
+# 全局安装指定包
+npm install <package_name> -g
+
+# 为特定文件夹安装包
+npm install <package_name> --prefix <folder>
+
+# 为特定文件夹安装指定开发包
+npm install <package_name> --save-dev --prefix <folder>
+
+# 运行脚本
+npm run <script>
+
+# 为特定文件夹运行脚本
+npm run <script> --prefix <folder>
+
+$ script: node -p "Object.keys(require('./package.json').scripts).join('\n')"
+
+
+
+% yarn, node, js
+
+# 初始化新包
+yarn init
+
+# 安装所有依赖包
+yarn install
+
+# 安装所有开发依赖包
+yarn install --save-dev
+
+# 安装指定包
+yarn add <package_name>
+
+# 安装指定开发包
+yarn add <package_name> --dev
+
+# 全局安装指定包
+yarn global add <package_name>
+
+# 运行脚本
+yarn run <script>
+
+$ script: node -p "Object.keys(require('./package.json').scripts).join('\n')"
+
+
+
+% nvm, node, js
+
+# 安装指定版本的 node
+nvm install <version>
+
+# 列出可用版本
+nvm ls-remote
+
+# 使用已安装的 node 版本
+nvm use <version>
+
+# 设置默认的 node 版本
+nvm alias default <version>

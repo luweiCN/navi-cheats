@@ -1,0 +1,27 @@
+% network
+
+# 杀死在指定端口上运行的进程
+lsof -i :<port> \
+   | awk '{l=$2} END {print l}' \
+   | xargs kill
+
+# 列出连接到指定端口的IP地址
+netstat -tn 2>/dev/null \
+   | grep :<port> \
+   | awk '{print $5}' \
+   | cut -d: -f1 \
+   | sort \
+   | uniq -c \
+   | sort -nr \
+   | head
+
+# 查找主要的本地IP地址
+ifconfig \
+  | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' \
+  | grep -Eo '([0-9]*\.){3}[0-9]*' \
+  | grep -v '127.0.0.1' \
+  | tail -n1
+
+
+# 查找外部的公共IP地址
+dig +short myip.opendns.com @resolver1.opendns.com

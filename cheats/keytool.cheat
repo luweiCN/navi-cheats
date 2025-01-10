@@ -1,0 +1,58 @@
+% java keytool, certificate, encryption
+
+## 创建
+# 生成Java密钥库和密钥对
+keytool -genkey -alias <ALIAS> -keyalg RSA -keystore <OUTPUT_JKS> -keysize <RSA_LENGTH>
+
+# 为现有的Java密钥库生成证书签名请求（CSR）
+keytool -certreq -alias <ALIAS> -keystore <INPUT_JKS> -file <OUTPUT_CSR>
+
+# 将根或中间CA证书导入现有的Java密钥库
+keytool -import -trustcacerts -alias root -file <INPUT_CRT> -keystore <INPUT_JKS>
+
+# 将签名的主证书导入现有的Java密钥库
+keytool -import -trustcacerts -alias <ALIAS> -file <INPUT_CRT> -keystore <INPUT_JKS>
+
+# 生成密钥库和自签名证书
+keytool -genkey -keyalg RSA -alias <ALIAS> -keystore <OUTPUT_JKS> -storepass <PASSWORD> -validity <VALIDITY> -keysize <RSA_LENGTH>
+
+
+
+## 验证
+# 检查独立证书
+keytool -printcert -v -file <INPUT_CRT>
+
+# 检查Java密钥库中的证书
+keytool -list -v -keystore <INPUT_JKS>
+
+# 使用别名检查特定的密钥库条目
+keytool -list -v -keystore <INPUT_JKS> -alias <ALIAS>
+
+
+
+## 其他
+# 从密钥库中删除证书
+keytool -delete -alias <ALIAS> -keystore <INPUT_JKS>
+
+# 更改密钥库的密码
+keytool -storepasswd -keystore <INPUT_JKS> -new <NEW_PASSWORD>
+
+# 从密钥库中导出证书
+keytool -export -alias <ALIAS> -file <OUTPUT_CRT> -keystore <INPUT_JKS>
+
+# 列出默认Java受信任证书库中的受信任CA证书
+keytool -list -v -keystore $JAVA_HOME/jre/lib/security/cacerts
+
+# 将新的证书颁发机构导入默认Java受信任证书库
+keytool -import -trustcacerts -file <INPUT_PEM> -alias <ALIAS> -keystore $JAVA_HOME/jre/lib/security/cacerts
+
+
+
+# 合理/常见的默认替代方案
+$ VALIDITY: printf "DAYS\tCOMMENT\n1\ta day\n30\ta month\n365\ta year\n730\ttwo years" --- --column 1 --headers 1
+$ RSA_LENGTH: printf "KEY LENGTH\tCOMMENT\n2048\t\tDefault\n4096\t\tBetter\n8192\t\tSlow?" --- --column 1 --headers 1
+
+# 尝试查找具有适当结尾的文件，默认为所有文件。
+$ INPUT_CRT:    ls -a | grep -e "\(.crt\|.cer\|.der\)" || ls -a
+$ INPUT_PEM:    ls -a | grep -e "\(.pem\)"             || ls -a
+$ INPUT_JKS:    ls -a | grep -e "\(.jks\)"             || ls -a

@@ -1,0 +1,134 @@
+% git
+
+# 设置全局 git 用户名
+git config --global user.name <name>
+
+# 设置全局 git 用户邮箱
+git config --global user.email <email>
+
+# 初始化一个 git 仓库
+git init
+
+# 克隆一个 git 仓库
+git clone -b <branch_name> <repository> <clone_directory>
+
+# 深度为 1 的浅克隆，包含所有分支和子模块
+git clone --depth=1 --no-single-branch --recurse-submodules <repository> <clone_directory>
+
+# 将上游 master 变基到本地/origin master（如果别人没有克隆你的仓库，使用此命令）
+git fetch <remote_name>
+git checkout master
+git rebase <remote_name>/master
+git fetch --unshallow origin
+git push -f origin master
+
+# 将上游 master 合并到本地/origin master（如果别人克隆了你的仓库，使用此命令）
+git fetch <remote_name>
+git checkout master
+git merge <remote_name>/master
+git fetch --unshallow origin
+git push -f origin master
+
+# 查看 git 仓库的所有可用远程
+git remote --verbose
+
+# 为 git 仓库添加一个远程
+git remote add <remote_name> <remote_url>
+
+# 重命名 git 仓库的一个远程
+git remote rename <old_remote_name> <new_remote_name>
+
+# 删除 git 仓库的一个远程
+git remote remove <remote_name>
+
+# 切换到分支
+git checkout <branch>
+
+# 显示 git 仓库的当前状态
+git status
+
+# 显示文件的未暂存更改
+cd <toplevel_directory>; \
+    git diff <unstaged_files>
+
+# 暂存单个或多个文件
+cd <toplevel_directory>; \
+    git add <changed_files>;
+
+# 暂存项目中的所有文件
+git add -A
+
+# 为暂存的文件创建提交
+git commit -m "<commit_description>"
+
+# 为暂存的文件创建回溯提交
+git commit --date="<number_of_days_ago> days ago" -m "<commit_description>"
+
+# 将已提交的更改推送到远程仓库
+git push -u <remote_name> <branch_name>
+
+# 将更改推送到远程仓库，覆盖另一个分支
+git push <remote_name> <branch>:<branch_to_overwrite>
+
+# 用本地分支的更改覆盖远程分支
+git push <remote_name> <branch_name> -f
+
+# 将远程仓库的更改拉取到本地仓库
+git pull --ff-only
+
+# 将一个分支的更改合并到当前分支
+git merge <branch_name>
+
+# 中止当前的冲突解决过程，并尝试重建合并前的状态
+git merge --abort
+
+# 显示仓库的提交日志
+git log
+
+# 显示格式化的仓库提交日志
+git log --all --decorate --oneline --graph
+
+# 清除所有内容
+git clean -dxf
+
+# 基于 master 签署分支中的所有提交
+git rebase master -S -f
+
+# 查看用户在 Github 上的所有开放拉取请求
+navi fn url::open 'https://github.com/pulls?&q=author:<user>+is:open+is:pr'
+
+# 从 fork 中检出一个分支
+git fetch origin pull/<pr_number>/head:pr/<pr_number> \
+   && git checkout pr/<pr_number>
+
+# 添加一个新模块
+git submodule add <repository> <path>
+
+# 更新模块
+git submodule update --init
+
+# 不初始化更新模块
+git submodule update
+
+# 拉取所有子模块
+git submodule foreach git pull origin master
+
+# 更新所有子模块
+git submodule update --init --recursive
+
+# 跳过 git 钩子
+git commit --no-verify
+
+# 从当前 HEAD 创建新分支
+git checkout -b <new_branch_name>
+
+# 从本地仓库中删除提交（销毁更改）
+git reset --hard HEAD~<number_of_commits>
+
+# 从本地仓库中删除提交（保留更改）
+git reset --soft HEAD~<number_of_commits>
+
+$ branch: git branch | awk '{print $NF}'
+$ toplevel_directory: git rev-parse --show-toplevel
+$ unstaged_files: git status --untracked-files=no -s --porcelain | awk '{print $NF}' --- --multi true
+$ changed_files: git status --untracked-files=all -s --porcelain | awk '{print $NF}' --- --multi true

@@ -1,0 +1,66 @@
+% kubernetes, k8s
+
+# 打印所有上下文
+kubectl config get-contexts
+
+# 打印当前 kubeconfig 的上下文
+kubectl config current-context
+
+# 设置 kubeconfig 的上下文
+kubectl config use-context <context>
+
+# 打印资源文档
+kubectl explain <resource>
+
+# 获取节点（添加选项 '-o wide' 获取详细信息）
+kubectl get nodes
+
+# 获取命名空间
+kubectl get namespaces
+
+# 获取命名空间中的 pod（添加选项 '-o wide' 获取详细信息）
+kubectl get pods -n <namespace>
+
+# 获取所有命名空间中的 pod（添加选项 '-o wide' 获取详细信息）
+kubectl get pods --all-namespaces
+
+# 获取命名空间中的服务
+kubectl get services -n <namespace>
+
+# 获取命名空间中资源的详细信息
+kubectl describe <resource>/<name> -n <namespace>
+
+# 打印命名空间中的日志
+kubectl logs -f pods/<name> -n <namespace>
+
+# 获取部署
+kubectl get deployments -n <namespace>
+
+# 编辑部署
+kubectl edit deployment/<name> -n <namespace>
+
+# 在维护前排空节点
+kubectl drain <name>
+
+# 标记节点为可调度
+kubectl uncordon <name>
+
+# 标记节点为不可调度
+kubectl cordon <name>
+
+# 显示资源（cpu/内存/存储）使用情况
+kubectl top <type>
+
+# 列出当前上下文中的命名空间
+kubens
+
+# 更改当前上下文的活动命名空间
+kubens <namespaces>
+
+# 切换到此上下文中的上一个命名空间
+kubens -
+
+# 显示当前命名空间
+kubens -c
+
+$ namespaces: kubens --- --headers 1 --column 3
